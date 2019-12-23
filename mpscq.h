@@ -23,10 +23,10 @@ public:
 
 		N = new __node__;
 		N->data = input;
-		N->next.store(nullptr); // RELAXED
+		N->next.store(nullptr); // Relaxed
 
-		P = __head__.exchange(N); // ACQ-REL
-		P->next.store(N); // RELEASE
+		P = __head__.exchange(N); // Acq-Rel
+		P->next.store(N); // Release
 	}
 
 	// Dequeue
@@ -34,15 +34,15 @@ public:
 		__node__ *tail;
 		__node__ *next;
 
-		tail = __tail__.load(); // RELAXED
-		next = tail->next.load(); // ACQUIRE
+		tail = __tail__.load(); // Relaxed
+		next = tail->next.load(); // Acquire
 
 		if (next == nullptr) {
 			return false;
 		}
 
     		output = next->data;
-		__tail__.store(next); // RELEASE
+		__tail__.store(next); // Release
 
 		delete tail;
 		return true;
@@ -53,10 +53,10 @@ public:
 		__node__ *front;
 
 		__head__ = new __node__;
-		__tail__ = __head__.load(); // RELAXED
+		__tail__ = __head__.load(); // Relaxed
 
-		front = __head__.load(); // RELAXED
-		front->next.store(nullptr); // RELAXED
+		front = __head__.load(); // Relaxed
+		front->next.store(nullptr); // Relaxed
 	}
 
 	// Destructor
@@ -68,7 +68,7 @@ public:
 			// empty
 		}
 
-		front = __head__.load(); // RELAXED
+		front = __head__.load(); // Relaxed
 		delete front;
 	}
 
