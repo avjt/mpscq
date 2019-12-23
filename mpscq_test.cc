@@ -36,8 +36,7 @@ template<typename T> long double run_test(T producer_func, T consumer_func)
 	typedef std::chrono::time_point<clock_t> time_t;
 	time_t start;
 	time_t end;
-	std::thread producer[10];
-	
+	std::thread producer[n_thr];
 
 	start = clock_t::now();
 	std::thread consumer(consumer_func);
