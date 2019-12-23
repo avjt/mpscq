@@ -73,9 +73,12 @@ int main(int C, char **V)
 		std::cerr << "Usage: " << V[0] << " [n-msg] [n-thr]" << std::endl;
 		return 1;
 	}
+
+	std::cout << "Threads: " << n_thr << ", Messages: " << n_msg << std::endl;
+
 	seconds = run_test(std::bind(&producer_func<queue_t>, &queue), std::bind(&consumer_func<queue_t>, &queue));
 
-	std::cout << "MPSC dynamic queue completed "
+	std::cout << "Completed "
 		<< (n_msg * n_thr)
 		<< " iterations in "
 		<< seconds
